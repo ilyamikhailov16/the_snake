@@ -155,19 +155,19 @@ class Snake(GameObject):
 class Apple(GameObject):
     """Класс яблока"""
 
-    def __init__(self, main_game_object):
-        position = self.randomize_position(main_game_object)
+    def __init__(self):
+        position = self.randomize_position()
         body_color = APPLE_COLOR
         super().__init__(position, body_color)
 
-    def randomize_position(self, main_game_object):
+    def randomize_position(self):
         """Генерирует случайную позицию для яблока(в пределах экрана)."""
-        x_positions = [x for x in range(
-            0, (SCREEN_WIDTH - GRID_SIZE * 2) + 1, GRID_SIZE)
-            if x not in main_game_object.positions]
-        y_positions = [y for y in range(
-            0, (SCREEN_HEIGHT - GRID_SIZE * 2) + 1, GRID_SIZE)
-            if y not in main_game_object.positions]
+        x_positions = [
+            x for x in range(0, (SCREEN_WIDTH - GRID_SIZE * 2) + 1, GRID_SIZE)
+        ]
+        y_positions = [
+            y for y in range(0, (SCREEN_HEIGHT - GRID_SIZE * 2) + 1, GRID_SIZE)
+        ]
 
         return choice(x_positions), choice(y_positions)
 
@@ -201,7 +201,7 @@ def main():
 
     snake = Snake()
     snake.draw()
-    apple = Apple(snake)
+    apple = Apple()
     apple.draw()
 
     while True:
@@ -214,7 +214,7 @@ def main():
 
         # Если длина изменилась, то яблоко съели. Создаем новое яблоко.
         if past_lenth != new_lenth:
-            apple = Apple(snake)
+            apple = Apple()
             apple.draw()
 
         pygame.display.update()
